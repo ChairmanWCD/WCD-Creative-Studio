@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mame &amp; Mug — Shiba Inu Café</title>
+<!--
+  Mame & Mug — Shiba Inu Café deck
+  Single self-contained file (images in ./assets/). MIT-licensed template
+  lineage: layout grammar inspired by zarazhangrui/beautiful-html-templates (playful).
+  Fonts: Baloo 2 (rounded display) + Inter (grotesque body) via Google Fonts with system fallback.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* ——— Brand tokens (DESIGN.md delta: mame-mug-kissaten v1) ——— */
+  --paper:#FAF4E8;        /* cream paper */
+  --paper-deep:#F2E7D0;   /* warm paper shadow */
+  --card:#FFFDF7;         /* card cream */
+  --wood:#8B5E34;         /* warm wood */
+  --wood-deep:#5C3D21;    /* dark wood / footer */
+  --accent:#E07A3F;       /* shiba orange */
+  --accent-deep:#C05E27;  /* shiba orange pressed */
+  --accent-soft:#F7D9BE;  /* orange tint */
+  --ink:#231A11;          /* warm ink black */
+  --muted:#7C6B56;        /* warm gray */
+  --leaf:#6F8B5E;         /* welfare green (support only) */
+  --line:#E7D8BC;         /* hairline */
+  --radius:22px;
+  --font-display:"Baloo 2","Hiragino Maru Gothic ProN","Yu Gothic",system-ui,sans-serif;
+  --font-body:"Inter","Helvetica Neue","Hiragino Kaku Gothic ProN",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:var(--font-body);background:var(--wood-deep);color:var(--ink);
+  -webkit-font-smoothing:antialiased;overflow:hidden;
+}
+/* paper grain */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;z-index:0;
+  background-image:radial-gradient(rgba(139,94,52,.06) 1px,transparent 1px);
+  background-size:22px 22px;}
+#stage{position:relative;height:100dvh;width:100%;display:flex;align-items:center;justify-content:center;padding:20px;}
+.slide{
+  position:relative;display:none;width:min(1280px,100%);aspect-ratio:16/9;max-height:calc(100dvh - 40px);
+  background:var(--paper);border-radius:28px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.45), 0 2px 0 rgba(255,255,255,.4) inset;
+  border:1px solid rgba(255,255,255,.35);
+}
+.slide.active{display:grid;}
+.slide-inner{padding:clamp(24px,4.5vw,64px);display:flex;flex-direction:column;height:100%;position:relative;z-index:2}
+/* top bar */
+.topbar{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.brandmark{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:17px;letter-spacing:.2px}
+.brandmark .pawdot{width:34px;height:34px;border-radius:12px;background:var(--ink);color:var(--paper);display:grid;place-items:center}
+.brandmark .pawdot svg{width:20px;height:20px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent-deep)}
+.kicker::before{content:"";width:26px;height:3px;border-radius:3px;background:var(--accent)}
+h1,h2{font-family:var(--font-display);line-height:1.02;letter-spacing:-.5px}
+h1{font-size:clamp(40px,5.6vw,84px);font-weight:800}
+h2{font-size:clamp(30px,3.6vw,52px);font-weight:800}
+h2 .accent,h1 .accent{color:var(--accent-deep)}
+.lede{color:var(--muted);font-size:clamp(14px,1.5vw,19px);line-height:1.6;max-width:56ch}
+.eyebrow-num{position:absolute;right:34px;top:26px;font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--muted);letter-spacing:1px}
+/* cover */
+#s1{grid-template-columns:1.05fr 1fr;}
+#s1 .cover-copy{padding:clamp(28px,4.5vw,64px);display:flex;flex-direction:column;justify-content:center;gap:16px}
+#s1 .cover-art{position:relative;background:var(--wood);min-height:100%}
+#s1 .cover-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#s1 .cover-art::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--paper) 0%,transparent 18%,transparent 75%,rgba(35,26,17,.35) 100%)}
+.tag-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.tag{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13.5px;font-weight:600}
+.tag svg{width:16px;height:16px;color:var(--accent-deep)}
+.tag.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btnrow{display:flex;gap:12px;margin-top:10px;flex-wrap:wrap}
+.btn{font-family:var(--font-display);font-weight:700;font-size:17px;border-radius:16px;padding:13px 24px;border:2px solid var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:10px}
+.btn.primary{background:var(--accent);border-color:var(--accent-deep);color:#fff;box-shadow:0 6px 0 var(--accent-deep)}
+.btn.primary:active{transform:translateY(3px);box-shadow:0 2px 0 var(--accent-deep)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn svg{width:18px;height:18px}
+.hint{font-size:12.5px;color:var(--muted);letter-spacing:.4px}
+/* generic grids */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.5vw,32px);align-items:center;flex:1;min-height:0}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);padding:20px 20px 18px;position:relative}
+.card.lift{box-shadow:0 12px 30px rgba(139,94,52,.16)}
+.card h3{font-family:var(--font-display);font-size:21px;margin:10px 0 6px}
+.card p{font-size:14px;line-height:1.6;color:var(--muted)}
+.iconchip{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-deep);flex:none}
+.iconchip svg{width:22px;height:22px}
+.iconchip.dark{background:var(--ink);color:var(--paper)}
+.iconchip.leaf{background:#E3EBDA;color:#4C6B3E}
+/* shiba profiles */
+.dogs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px;flex:1;min-height:0}
+.dog{background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+.dog .ph{aspect-ratio:1/.82;overflow:hidden;background:var(--paper-deep)}
+.dog .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.dog .who{padding:14px 16px 16px}
+.dog .who h3{font-family:var(--font-display);font-size:22px;display:flex;align-items:center;gap:8px}
+.coat{font-size:11.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--accent-deep);background:var(--accent-soft);border-radius:999px;padding:3px 10px}
+.dog .who p{font-size:13.5px;color:var(--muted);line-height:1.55;margin-top:6px}
+.dog .traits{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.trait{font-size:12px;font-weight:600;border:1.5px solid var(--line);border-radius:999px;padding:4px 10px;background:#fff}
+/* menu */
+.menu-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(16px,2.5vw,32px);align-items:stretch;flex:1;min-height:0;margin-top:14px}
+.menu-photo{border-radius:var(--radius);overflow:hidden;position:relative;border:1.5px solid var(--line);min-height:0}
+.menu-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.menu-photo figcaption{position:absolute;left:14px;bottom:14px;background:rgba(35,26,17,.82);color:var(--paper);font-size:12.5px;font-weight:600;border-radius:12px;padding:8px 12px;display:flex;gap:8px;align-items:center}
+.menu-photo figcaption svg{width:15px;height:15px;color:var(--accent)}
+.mitems{display:flex;flex-direction:column;gap:10px}
+.mitem{display:flex;align-items:center;gap:14px;background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:12px 16px 12px 12px}
+.mitem .price{margin-left:auto;font-family:var(--font-display);font-weight:800;font-size:19px;white-space:nowrap}
+.mitem .price small{display:block;font-family:var(--font-body);font-size:11px;color:var(--muted);font-weight:600;text-align:right}
+.mitem h4{font-family:var(--font-display);font-size:18px}
+.mitem p{font-size:12.5px;color:var(--muted)}
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}
+.step{background:var(--ink);color:var(--paper);border-radius:var(--radius);padding:20px 18px;position:relative;overflow:hidden}
+.step:nth-child(even){background:var(--wood)}
+.step .n{font-family:var(--font-display);font-weight:800;font-size:15px;letter-spacing:2px;color:var(--accent)}
+.step h3{font-family:var(--font-display);font-size:21px;margin:6px 0}
+.step p{font-size:13px;line-height:1.55;opacity:.85}
+.step svg{width:24px;height:24px;margin-bottom:4px}
+.rules{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.rule{flex:1;min-width:180px;display:flex;gap:10px;align-items:center;background:var(--card);border:1.5px dashed var(--wood);border-radius:14px;padding:10px 14px;font-size:13px;font-weight:600}
+.rule svg{width:18px;height:18px;color:var(--accent-deep);flex:none}
+/* care */
+.care-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.stat-band{display:flex;gap:14px;margin-top:14px;background:var(--ink);color:var(--paper);border-radius:18px;padding:16px 22px;align-items:center}
+.stat-band .stat{flex:1;text-align:center}
+.stat-band .stat b{font-family:var(--font-display);font-size:30px;display:block;color:var(--accent)}
+.stat-band .stat span{font-size:12px;letter-spacing:1px;text-transform:uppercase;opacity:.75;font-weight:600}
+/* visit */
+.visit{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.5vw,32px);flex:1;margin-top:12px;min-height:0}
+.inforow{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1.5px solid var(--line);font-size:15px}
+.inforow svg{width:20px;height:20px;color:var(--accent-deep);flex:none;margin-top:2px}
+.inforow b{display:block;font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.cta-card{background:var(--ink);color:var(--paper);border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:12px;justify-content:center;position:relative;overflow:hidden}
+.cta-card::before{content:"";position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(224,122,63,.5),transparent 70%);right:-100px;top:-100px}
+.cta-card h3{font-family:var(--font-display);font-size:30px;line-height:1.1}
+.cta-card p{font-size:14px;opacity:.8;line-height:1.6}
+/* chrome */
+#progress{position:fixed;left:0;bottom:0;height:5px;width:100%;background:rgba(255,255,255,.15);z-index:10}
+#progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .35s ease}
+#counter{position:fixed;right:26px;bottom:20px;z-index:10;background:rgba(35,26,17,.85);color:var(--paper);font-family:var(--font-display);font-weight:700;font-size:14px;letter-spacing:1px;border-radius:999px;padding:8px 16px}
+#dots{position:fixed;left:26px;bottom:20px;z-index:10;display:flex;gap:8px}
+#dots button{width:12px;height:12px;border-radius:50%;border:2px solid rgba(255,253,247,.7);background:transparent;cursor:pointer;padding:0}
+#dots button.on{background:var(--accent);border-color:var(--accent)}
+#navhint{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;z-index:10;color:rgba(255,253,247,.65);font-size:12px;letter-spacing:.5px}
+.clickzone{position:fixed;top:0;bottom:0;width:8%;z-index:5;cursor:pointer}
+#prevZone{left:0}#nextZone{right:0}
+.paw-bg{position:absolute;right:-30px;bottom:-30px;width:280px;height:280px;opacity:.07;z-index:1;color:var(--wood-deep)}
+.paw-bg svg{width:100%;height:100%}
+/* responsive: stack on narrow */
+@media (max-aspect-ratio:1/1),(max-width:760px){
+  body{overflow:auto}
+  #stage{height:auto;display:block;padding:12px}
+  .slide{display:none;width:100%;aspect-ratio:auto;min-height:80dvh}
+  .slide.active{display:block}
+  #s1{grid-template-columns:1fr}
+  #s1 .cover-art{min-height:300px}
+  #s1 .cover-art img{position:relative;height:300px}
+  .grid2,.visit,.menu-grid{grid-template-columns:1fr}
+  .grid3,.dogs,.care-grid,.flow{grid-template-columns:1fr}
+  .menu-photo{min-height:240px}.menu-photo img{position:relative;height:240px}
+  #navhint{display:none}
+}
+/* print */
+@media print{
+  body{overflow:visible;background:#fff}
+  body::before,#progress,#counter,#dots,#navhint,.clickzone,.btnrow{display:none!important}
+  #stage{display:block;height:auto;padding:0}
+  .slide{display:grid!important;width:100%;aspect-ratio:auto;box-shadow:none;border:2px solid #ddd;border-radius:12px;margin:0 0 18px;break-inside:avoid;max-height:none}
+}
+</style>
+</head>
+<body>
+<div id="stage" role="main" aria-label="Mame and Mug Shiba Inu Cafe deck">
+
+  <!-- 1 · COVER -->
+  <section class="slide active" id="s1" data-title="Cover">
+    <div class="cover-copy">
+      <div class="topbar"><span class="brandmark"><span class="pawdot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045q-.64-2.065-2.7-2.705A3.5 3.5 0 0 1 5.5 10Z"/></svg></span>MAME &amp; MUG</span></div>
+      <span class="kicker">Shiba Inu Café · Tokyo-style kissaten</span>
+      <h1>Good coffee.<br>Good dogs.<br><span class="accent">Great mornings.</span></h1>
+      <p class="lede">A warm, woody neighborhood café where three resident Shiba Inus set the pace — slow pours, sunny cushions, and zero rush. Come for the latte, stay for the wag.</p>
+      <div class="tag-row">
+        <span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2m4-2v2m2 4a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1M6 2v2"/></svg>Slow-bar kissaten</span>
+        <span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.25 16.25h1.5L12 17zM16 14v.5"/><path d="M4.42 11.247A13.2 13.2 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444a11.7 11.7 0 0 0-.493-3.309M8 14v.5"/><path d="M8.5 8.5c-.384 1.05-1.083 2.028-2.344 2.5-1.931.722-3.576-.297-3.656-1-.113-.994 1.177-6.53 4-7 1.923-.321 3.651.845 3.651 2.235A7.5 7.5 0 0 1 14 5.277c0-1.39 1.844-2.598 3.767-2.277 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/></svg>3 resident Shibas</span>
+        <span class="tag solid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Open 9:00 – 19:00</span>
+      </div>
+      <div class="btnrow">
+        <button class="btn primary" data-goto="7">Plan your visit<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+        <button class="btn ghost" data-goto="3">Meet the Shibas</button>
+      </div>
+      <p class="hint">← → keys or click edges to wander · P to print</p>
+    </div>
+    <div class="cover-art"><img src="assets/hero.png" alt="Cozy Mame and Mug café interior with Shiba Inus resting by wooden tables in warm light"><div class="eyebrow-num" style="color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5)">01 / 07</div></div>
+  </section>
+
+  <!-- 2 · STORY -->
+  <section class="slide" id="s2" data-title="Our story">
+    <div class="slide-inner">
+      <div class="eyebrow-num">02 / 07</div>
+      <span class="kicker">The concept</span>
+      <h2>A modern <span class="accent">kissaten</span>,<br>run at Shiba speed.</h2>
+      <p class="lede" style="margin-top:8px">Tokyo's old kissaten cafés taught us everything: thick toast, hand pours, regulars with newspapers. We kept the ritual — and handed the floor cushions to three very opinionated dogs.</p>
+      <div class="grid3">
+        <div class="card lift"><div class="iconchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2m4-2v2m2 4a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1M6 2v2"/></svg></div><h3>Kissaten comfort</h3><p>Dark roast pour-overs, cream soda floats, and toast thick enough to stand on. Recipes from a 60-year-old Ginza notebook.</p></div>
+        <div class="card lift"><div class="iconchip dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045q-.64-2.065-2.7-2.705A3.5 3.5 0 0 1 5.5 10Z"/></svg></div><h3>Shiba time</h3><p>45-minute lounge sessions with the pack. NoLap-naps guaranteed? Never. But belly rubs are on a strict first-come schedule.</p></div>
+        <div class="card lift"><div class="iconchip leaf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg></div><h3>Slow mornings</h3><p>Wood, paper, sunlight. No laptops after 11:00 on weekends — this is a sit-stay-and-sip kind of place.</p></div>
+      </div>
+      <div class="paw-bg"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045q-.64-2.065-2.7-2.705A3.5 3.5 0 0 1 5.5 10Z"/></svg></div>
+    </div>
+  </section>
+
+  <!-- 3 · MEET THE SHIBAS -->
+  <section class="slide" id="s3" data-title="Meet the Shibas">
+    <div class="slide-inner">
+      <div class="eyebrow-num">03 / 07</div>
+      <span class="kicker">The residents</span>
+      <h2>Meet the <span class="accent">fluff staff.</span></h2>
+      <div class="dogs">
+        <article class="dog"><div class="ph"><img src="assets/shiba-cream.png" alt="Mame, cream Shiba Inu, smiling portrait"></div><div class="who"><h3>Mame <span class="coat">Cream · 4</span></h3><p>The greeter. Professional lap-warmer, amateur crumb inspector. Will escort you to the best sunspot.</p><div class="traits"><span class="trait">☀ sun-chaser</span><span class="trait">gentle</span><span class="trait">kids' fave</span></div></div></article>
+        <article class="dog"><div class="ph"><img src="assets/shiba-red.png" alt="Goma, red Shiba Inu, alert portrait"></div><div class="who"><h3>Goma <span class="coat">Red · 3</span></h3><p>The athlete. Performs the famous “spinning welcome” at 10:00 sharp. Treat-motivated, fame-hungry.</p><div class="traits"><span class="trait">⚡ zoomies</span><span class="trait">tricks</span><span class="trait">photogenic</span></div></div></article>
+        <article class="dog"><div class="ph"><img src="assets/shiba-blacktan.png" alt="Kuro, black-and-tan Shiba Inu, calm portrait"></div><div class="who"><h3>Kuro <span class="coat">Black-tan · 6</span></h3><p>The elder. Supervises naps from the window cushion. Accepts exactly three head-pats per guest.</p><div class="traits"><span class="trait">☁ nap coach</span><span class="trait">calm</span><span class="trait">wise</span></div></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · MENU -->
+  <section class="slide" id="s4" data-title="Menu">
+    <div class="slide-inner">
+      <div class="eyebrow-num">04 / 07</div>
+      <span class="kicker">Sip &amp; snack</span>
+      <h2>The <span class="accent">paw-approved</span> menu.</h2>
+      <div class="menu-grid">
+        <figure class="menu-photo"><img src="assets/menu-latte.png" alt="Shiba paw latte art with dorayaki and cookies on a wooden table"><figcaption><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"/><circle cx="12" cy="13" r="3"/></svg>Every latte leaves with a paw print</figcaption></figure>
+        <div class="mitems">
+          <div class="mitem"><div class="iconchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2m4-2v2m2 4a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1M6 2v2"/></svg></div><div><h4>Shiba Paw Latte</h4><p>house dark roast · paw cocoa art</p></div><div class="price">¥650<small>hot / iced</small></div></div>
+          <div class="mitem"><div class="iconchip dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></svg></div><div><h4>Mame Matcha Float</h4><p>Uji matcha · vanilla · cream soda</p></div><div class="price">¥780<small>signature</small></div></div>
+          <div class="mitem"><div class="iconchip leaf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045q-.64-2.065-2.7-2.705A3.5 3.5 0 0 1 5.5 10Z"/></svg></div><div><h4>Dorayaki Mornings Set</h4><p>red-bean dorayaki · shiba cookie · mini latte</p></div><div class="price">¥1,100<small>until 11:00</small></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · EXPERIENCE -->
+  <section class="slide" id="s5" data-title="Experience">
+    <div class="slide-inner">
+      <div class="eyebrow-num">05 / 07</div>
+      <span class="kicker">How a visit flows</span>
+      <h2>45 minutes of <span class="accent">pure wag.</span></h2>
+      <div class="flow">
+        <div class="step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2m4-2v2m2 4a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1M6 2v2"/></svg><div class="n">STEP 01</div><h3>Welcome &amp; wash</h3><p>Order at the counter, sanitize, and get your Shiba-guide card with today's pack lineup.</p></div>
+        <div class="step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045q-.64-2.065-2.7-2.705A3.5 3.5 0 0 1 5.5 10Z"/></svg><div class="n">STEP 02</div><h3>Floor time</h3><p>Settle on a cushion. Staff introduce each dog — let them sniff you first, then pet.</p></div>
+        <div class="step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"/><circle cx="12" cy="13" r="3"/></svg><div class="n">STEP 03</div><h3>Snack &amp; snap</h3><p>Drinks arrive mid-session. Photos welcome — flash off, treats only from staff.</p></div>
+        <div class="step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg><div class="n">STEP 04</div><h3>Sayonara</h3><p>Stamp your loyalty card, grab beans to go. Same dogs, new stories next time.</p></div>
+      </div>
+      <div class="rules">
+        <span class="rule"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"/><circle cx="12" cy="13" r="3"/></svg>No flash · phones on silent</span>
+        <span class="rule"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg>Let sleeping Shibas lie</span>
+        <span class="rule"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></svg>Staff treats only · kids with adults</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · CARE -->
+  <section class="slide" id="s6" data-title="Care">
+    <div class="slide-inner">
+      <div class="eyebrow-num">06 / 07</div>
+      <span class="kicker">Community &amp; care</span>
+      <h2>Happy dogs make <span class="accent">good hosts.</span></h2>
+      <div class="care-grid">
+        <div class="card lift"><div class="iconchip leaf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg></div><h3>Welfare first</h3><p>Max 4 sessions per dog per day, two full rest days weekly, and a private garden off-limits to guests. Vet checks monthly — reports posted by the door.</p></div>
+        <div class="card lift"><div class="iconchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.25 16.25h1.5L12 17zM16 14v.5"/><path d="M4.42 11.247A13.2 13.2 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444a11.7 11.7 0 0 0-.493-3.309M8 14v.5"/><path d="M8.5 8.5c-.384 1.05-1.083 2.028-2.344 2.5-1.931.722-3.576-.297-3.656-1-.113-.994 1.177-6.53 4-7 1.923-.321 3.651.845 3.651 2.235A7.5 7.5 0 0 1 14 5.277c0-1.39 1.844-2.598 3.767-2.277 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/></svg></div><h3>Gentle training</h3><p>Reward-only methods with a certified trainer. Shy-dog signals taught in every briefing — guests learn to read ears, tails, yawns.</p></div>
+        <div class="card lift"><div class="iconchip dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><h3>Clean &amp; calm</h3><p>HEPA air, paw-wash stations, and separate kitchen / lounge zones. 12 guests max per session keeps the room soft-spoken.</p></div>
+      </div>
+      <div class="stat-band">
+        <div class="stat"><b>4 + 2</b><span>sessions max · rest days</span></div>
+        <div class="stat"><b>12</b><span>guests per session</span></div>
+        <div class="stat"><b>5%</b><span>of sales to shelters</span></div>
+        <div class="stat"><b>0</b><span>cages, ever</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · VISIT -->
+  <section class="slide" id="s7" data-title="Visit">
+    <div class="slide-inner">
+      <div class="eyebrow-num">07 / 07</div>
+      <span class="kicker">Come say hi</span>
+      <h2>Your cushion is <span class="accent">already warm.</span></h2>
+      <div class="visit">
+        <div>
+          <div class="inforow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg><div><b>Find us</b>2-14-8 Kichijōji, Musashino, Tokyo — 3 min from the park exit</div></div>
+          <div class="inforow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><div><b>Hours</b>Daily 9:00 – 19:00 · lounge sessions on the hour · dogs rest 13:00 – 14:00</div></div>
+          <div class="inforow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045q-.64-2.065-2.7-2.705A3.5 3.5 0 0 1 5.5 10Z"/></svg><div><b>Lounge pass</b>¥1,800 / 45 min incl. one drink · kids ¥900 · under 6 free on laps</div></div>
+        </div>
+        <div class="cta-card">
+          <span class="kicker" style="color:var(--accent)">Partners &amp; press welcome</span>
+          <h3>Book a table.<br>Or build one with us.</h3>
+          <p>Weekend sessions sell out — reserve online. For partnerships, franchising, and shelter collabs: hello@mame-and-mug.jp</p>
+          <div class="btnrow"><button class="btn primary" onclick="window.print()">Reserve / Print deck<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button><button class="btn ghost" style="color:var(--paper);border-color:var(--paper)" data-goto="1">Back to cover</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="clickzone" id="prevZone" title="Previous"></div>
+<div class="clickzone" id="nextZone" title="Next"></div>
+<div id="progress"><i id="bar"></i></div>
+<div id="dots" role="tablist" aria-label="Slides"></div>
+<div id="counter">01 / 07</div>
+<div id="navhint">← → navigate · click edges · Home / End · P print</div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var dots=document.getElementById('dots'),bar=document.getElementById('bar'),counter=document.getElementById('counter');
+  var i=0;
+  slides.forEach(function(_,n){var b=document.createElement('button');b.title='Go to slide '+(n+1);b.setAttribute('aria-label','slide '+(n+1));b.addEventListener('click',function(e){e.stopPropagation();go(n)});dots.appendChild(b);});
+  function go(n){i=(n+slides.length)%slides.length;
+    slides.forEach(function(s,k){s.classList.toggle('active',k===i)});
+    [].forEach.call(dots.children,function(d,k){d.classList.toggle('on',k===i)});
+    bar.style.width=((i+1)/slides.length*100)+'%';
+    counter.textContent=('0'+(i+1)).slice(-2)+' / '+('0'+slides.length).slice(-2);
+    try{location.hash='s'+(i+1)}catch(e){}
+  }
+  function next(){go(i+1)}function prev(){go(i-1)}
+  document.getElementById('nextZone').addEventListener('click',next);
+  document.getElementById('prevZone').addEventListener('click',prev);
+  document.addEventListener('click',function(e){if(e.target.closest('[data-goto]')){go(parseInt(e.target.closest('[data-goto]').dataset.goto,10)-1)}});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown')next();
+    else if(e.key==='ArrowLeft'||e.key==='PageUp')prev();
+    else if(e.key==='Home')go(0);else if(e.key==='End')go(slides.length-1);
+    else if(e.key==='p'||e.key==='P')window.print();
+  });
+  var h=parseInt((location.hash||'').replace('#s',''),10);if(h>=1&&h<=slides.length)i=h-1;
+  go(i);
+})();
+</script>
+</body>
+</html>

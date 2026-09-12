@@ -5,3 +5,6 @@ __pycache__/
 .env
 uv.err
 uv.log
+.opencode/node_modules/
+server-start.log
+server-start.err.log

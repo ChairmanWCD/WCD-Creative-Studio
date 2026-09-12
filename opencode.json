@@ -1,0 +1,27 @@
+{"$schema": "https://opencode.ai/config.json", "default_agent": "art-director",   "permission": {
+    "bash": {
+      "*": "ask",
+      "curl http://localhost:8100/*": "allow",
+      "curl http://192.168.1.202:8100/*": "allow"
+    },
+    "webfetch": "allow"
+  },   "skills": {
+    "paths": [
+      ".opencode/skills",
+      ".opencode/vendor/open-design/skills",
+      ".opencode/vendor/open-design/design-templates",
+      ".opencode/vendor/open-design/craft",
+      ".opencode/vendor/claude-skills/engineering-team/skills",
+      ".opencode/vendor/claude-skills/engineering/strict-api",
+      ".opencode/vendor/claude-skills/engineering/zero-hallucination-coder/skills",
+      ".opencode/vendor/claude-skills/engineering/skills"
+    ]
+  },
+  "mcp": {
+    "mastericons": {
+      "type": "local",
+      "command": ["npx", "-y", "mcp-remote", "https://mastericons.com/api/mcp"],
+      "enabled": true
+    }
+  }
+}
